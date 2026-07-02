@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   const { producto } = await req.json();
 
-  const serperRes = await fetch('https://google.serper.dev/shopping', {
+  const serperRes = await fetch('https://google.serper.dev/shopping', { 
     method: 'POST',
     headers: {
       'X-API-KEY': process.env.SERPER_API_KEY!,
@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
   });
 
   const serperData = await serperRes.json();
+  console.log('Serper response:', JSON.stringify(serperData));
   const resultados = serperData.shopping?.slice(0, 6) || [];
 
   const resumenResultados = resultados.map((item: any, i: number) =>
